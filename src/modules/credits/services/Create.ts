@@ -1,24 +1,20 @@
 import { inject, injectable } from 'tsyringe';
-import { Shop } from '../infra/Entity';
+import { Credit } from '../infra/Entity';
 import { contract } from '../interfaces/contract';
 import { create } from '../interfaces/create';
 
 @injectable()
 export class Create {
     constructor(
-        @inject('Shop')
+        @inject('Credit')
         private repository: contract,
     ) {}
 
     async execute({
-        clientId,
-        amountPaid
-    }: create): Promise<Shop> {
+        clientId, value   
+    }: create): Promise<Credit> {
 
-        const item = await this.repository.create({
-            clientId,
-            amountPaid
-        });
+        const item = await this.repository.create({ clientId, value });
 
         return item;
     }

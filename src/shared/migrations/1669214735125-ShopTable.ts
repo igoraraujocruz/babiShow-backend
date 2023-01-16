@@ -16,35 +16,12 @@ export class ShopTable1669214735125 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'typeOfPayment',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'paid',
-                        type: 'boolean',
-                        default: false
-                    },
-                    {
-                        name: 'socketId',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'status',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'referenceId',
-                        type: 'varchar',
-                        isNullable: true
+                        name: 'amountPaid',
+                        type: 'decimal',
                     },
                     {
                         name: 'clientId',
                         type: 'uuid',
-                    },
-                    {
-                        name: 'sellerId',
-                        type: 'uuid',
-                        isNullable: true,
                     },
                     {
                         name: 'createdAt',
@@ -75,21 +52,9 @@ export class ShopTable1669214735125 implements MigrationInterface {
                 onUpdate: 'CASCADE',
             }),
         );
-        await queryRunner.createForeignKey(
-            'shop',
-            new TableForeignKey({
-                name: 'shopSellerForeignKey',
-                columnNames: ['sellerId'],
-                referencedColumnNames: ['id'],
-                referencedTableName: 'sellers',
-                onDelete: 'CASCADE',
-                onUpdate: 'CASCADE',
-            }),
-        );
     }
 
     async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('shop', 'shopSellerForeignKey');
         await queryRunner.dropForeignKey('shop', 'shopClientForeignKey');
         await queryRunner.dropTable('shop');
     }

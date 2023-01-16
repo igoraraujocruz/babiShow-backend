@@ -10,8 +10,8 @@ export class Repository implements contract {
         this.ormRepository = getRepository(Seller);
     }
 
-    async create({ name, password, email, numberPhone, username, birthday }: create): Promise<Seller> {
-        const item = this.ormRepository.create({ name, password, email, numberPhone, username, birthday });
+    async create({ username, password }: create): Promise<Seller> {
+        const item = this.ormRepository.create({ username, password });
 
         await this.ormRepository.save(item);
 
@@ -32,31 +32,6 @@ export class Repository implements contract {
         })
 
         return item
-    }
-
-    async getByEmail(email: string): Promise<Seller | undefined> {
-        const item = await this.ormRepository.findOne({
-            where: { email }
-        })
-
-        return item
-    }
-
-    async getByNumberPhone(numberPhone: string): Promise<Seller | undefined> {
-        const item = await this.ormRepository.findOne({
-            where: { numberPhone }
-        })
-
-        return item
-    }
-
-    async getBySellerName(sellerName: string): Promise<Seller[] | undefined> {
-        const item = await this.ormRepository
-        .createQueryBuilder('seller')
-        .where('LOWER(seller.name) = LOWER(:sellerName)', { sellerName })
-        .getMany()
-
-        return item;
     }
 
     async getBySellerUsername(sellerUsername: string): Promise<Seller | undefined> {

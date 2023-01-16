@@ -17,15 +17,14 @@ export class Controller {
         response: Response,
     ): Promise<Response> {
 
-        const { name, description, amount, price, points, category, destaque } = request.body;
-
+        const { name, amount, price, category, cost } = request.body;
 
         const create = container.resolve(Create);
         const uploadPhotos = container.resolve(Upload);
 
         const product = await create.execute({
-            name, description, amount, price, points, category,
-            destaque,
+            name, amount, price, category,
+            cost,
             slug: slugify(name, {
                 lower: true,
             }), 
@@ -89,19 +88,17 @@ export class Controller {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const {id, name, description, price, points, amount, destaque, category } = request.body;
+        const {id, name, price, amount, category, cost } = request.body;
 
         const updateProduct = container.resolve(Update);
 
         const productUpdated = await updateProduct.execute({
             id,
             name,
-            description,
             price,
-            points,
             amount,
-            destaque,
-            category
+            category,
+            cost
         });
 
         return response.json(instanceToPlain(productUpdated));

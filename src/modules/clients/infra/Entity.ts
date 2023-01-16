@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Shop } from '../../shop/infra/Entity';
+import { Credit } from '../../credits/infra/Entity';
 
 @Entity('clients')
 export class Client {
@@ -19,19 +20,14 @@ export class Client {
     @Column()
     name: string;
 
-    @Column()
-    address: string;
+    @OneToMany(() => Credit, credit => credit.client, {
+        eager: true
+    })
+    credit: Credit[];
 
-    @Column()
-    cep: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    numberPhone: string;
-
-    @OneToMany(() => Shop, shop => shop.client)
+    @OneToMany(() => Shop, shop => shop.client, {
+        eager: true
+    })
     shop: Shop[];
 
     @CreateDateColumn()

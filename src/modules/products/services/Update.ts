@@ -14,12 +14,10 @@ export class Update {
     public async execute({
         id,
         name,
-        description,
-        points,
         amount,
         price,
-        destaque,
-        category
+        category,
+        cost
     }: IUpdate): Promise<Product> {
         const product = await this.repository.findById(id);
 
@@ -38,12 +36,10 @@ export class Update {
         }
 
         product.name = name;
-        product.description = description;
-        product.points = points;
         product.amount = amount;
         product.price = price;
-        product.destaque = destaque;
         product.category = category;
+        product.cost = cost;
         
         return this.repository.save(product);
     }

@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { Create } from '../services/Create';
 import { GetAll } from '../services/GetAll';
+import { GetAllByName } from '../services/GetAllByName';
+import { GetByClientId } from '../services/GetByClientId';
 
 
 export class Controller {
@@ -10,21 +12,38 @@ export class Controller {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        const { name, cep, address, email, numberPhone } =
+        const { name } =
             request.body;
 
-            const numberPhoneFormated = numberPhone.replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
 
         const create = container.resolve(Create);
 
         const item = await create.execute({
-            name, cep, address, email, numberPhone: numberPhoneFormated
+            name
         });
 
         return response.status(200).json(item);
     }
 
-    async getAll(request: Request, response: Response): Promise<Response> {
+    async get(request: Request, response: Response): Promise<Response> {
+        const { clientId, name } = request.query; 
+
+        if(clientId) {
+            const get = container.resolve(GetByClientId)
+
+            const item = await get.execute(String(clientId))
+
+            return response.json(instanceToPlain(item))
+        }
+
+        if (name) {
+            const get = container.resolve(GetAllByName);
+
+            const products = await get.execute(String(name));
+
+            return response.json(instanceToPlain(products));
+        }
+
         const getAll = container.resolve(GetAll)
 
         const item = await getAll.execute()

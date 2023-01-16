@@ -9,18 +9,12 @@ router.post(
     '/',
     celebrate({
         [Segments.BODY]: {
-            name: Joi.string().required(),
+            clientId: Joi.string().required(),
+            value: Joi.number().required(),
         },
     }),
     controller.create,
 );
 
-router.get('/', 
-celebrate({
-    [Segments.QUERY]: {
-        clientId: Joi.string().uuid(),
-        name: Joi.string(),
-    },
-}),
-controller.get)
+router.get('/', controller.getAll)
 

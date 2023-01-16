@@ -13,7 +13,7 @@ export class Create {
     ) {}
 
     async execute({
-        name, username, password, email, numberPhone, birthday    
+         username, password
     }: create): Promise<Seller> {
 
         const findSameUsername = await this.repository.getBySellerUsername(username)
@@ -22,22 +22,10 @@ export class Create {
             throw new AppError('Este nome de usuário já existe, tente outro...')
         }
 
-        const findSameEmail = await this.repository.getByEmail(email)
-
-        if(findSameEmail) {
-            throw new AppError('Este email já está registrado, tente outro...')
-        }
-
-        const findSameNumberPhone = await this.repository.getByNumberPhone(numberPhone)
-
-        if(findSameNumberPhone) {
-            throw new AppError('Este celular já está registrado, tente outro...')
-        }
-
         const hashedPassword = await hash(password, 8);
 
         const item = await this.repository.create({
-            name, username, password: hashedPassword, email, numberPhone, birthday
+             username, password: hashedPassword
         });
 
         return item;

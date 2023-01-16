@@ -16,43 +16,12 @@ export class SellersTable1669159036543 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'name',
-                        type: 'varchar',
-                    },
-                    {
                         name: 'username',
                         type: 'varchar',
                     },
                     {
-                        name: 'points',
-                        type: 'int',
-                        default: 0,
-                    },
-                    {
-                        name: 'email',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'numberPhone',
-                        type: 'varchar',
-                    },
-                    {
-                        name: 'emailConfirm',
-                        type: 'boolean',
-                        default: false,
-                    },
-                    {
-                        name: 'isAdmin',
-                        type: 'boolean',
-                        default: false,
-                    },
-                    {
                         name: 'password',
                         type: 'varchar',
-                    },
-                    {
-                        name: 'birthday',
-                        type: 'timestamp',
                     },
                     {
                         name: 'createdAt',

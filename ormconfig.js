@@ -3,6 +3,7 @@ require('dotenv/config');
 const dir = process.env.NODE_ENV === 'dev' ? 'src' : 'dist';
 const file = process.env.NODE_ENV === 'dev' ? 'ts' : 'js';
 
+
 module.exports = {
     type: "postgres",
     host: process.env.POSTGRESQL_HOST,

@@ -1,12 +1,12 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class ClientsTable1669208933778 implements MigrationInterface {
+export class CreditTable1673629984924 implements MigrationInterface {
 
     async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         await queryRunner.createTable(
             new Table({
-                name: 'clients',
+                name: 'credits',
                 columns: [
                     {
                         name: 'id',
@@ -16,8 +16,12 @@ export class ClientsTable1669208933778 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'name',
-                        type: 'varchar',
+                        name: 'value',
+                        type: 'decimal',
+                    },
+                    {
+                        name: 'clientId',
+                        type: 'uuid',
                     },
                     {
                         name: 'createdAt',
@@ -37,10 +41,22 @@ export class ClientsTable1669208933778 implements MigrationInterface {
                 ],
             }),
         );
+        await queryRunner.createForeignKey(
+            'credits',
+            new TableForeignKey({
+                name: 'creditsClientForeignKey',
+                columnNames: ['clientId'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'clients',
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            }),
+        );
     }
 
     async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('clients');
+        await queryRunner.dropForeignKey('credits', 'creditsClientForeignKey');
+        await queryRunner.dropTable('credits');
     }
 
 }

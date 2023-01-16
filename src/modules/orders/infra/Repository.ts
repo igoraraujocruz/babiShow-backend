@@ -24,14 +24,6 @@ export class Repository implements contract {
         return item;
     }
 
-    async getBySellerId(sellerId: string): Promise<Order | undefined> {
-        const item = this.ormRepository.findOne({
-            where: { sellerId }
-        })
-
-        return item;
-    }
-
     async save(item: Order): Promise<Order> {
         return this.ormRepository.save(item);
     }

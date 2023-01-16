@@ -21,23 +21,17 @@ export class Product {
     name: string;
 
     @Column()
-    description: string;
+    amount: number;
 
     @Column()
-    amount: number;
+    cost: number;
 
     @Column()
     category: string;
 
     @Column()
     price: number;
-
-    @Column()
-    destaque: boolean;
-
-    @Column()
-    points: number;
-
+    
     @Column()
     slug: string;
 

@@ -1,4 +1,4 @@
 export interface create {
     clientId: string;
-    amountPaid: number;
+    value: number;
 }

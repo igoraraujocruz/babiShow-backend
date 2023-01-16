@@ -11,12 +11,10 @@ export class Create {
     ) {}
 
     async execute({
-        name, cep, address, email, numberPhone    
+        name   
     }: create): Promise<Client> {
 
-        const item = await this.repository.create({
-            name, cep, address, email, numberPhone
-        });
+        const item = await this.repository.create({ name });
 
         return item;
     }

@@ -28,6 +28,10 @@ export class Create {
             throw new AppError(`Infelizmente não possuímos toda a quantidade desejada, no momento nosso estoque é de ${product.amount} ${product.name}`)
         }
 
+        product.amount -= quantity
+
+        await this.product.save(product)
+
         const item = await this.repository.create({ productId, quantity, shopId });
 
         return item;

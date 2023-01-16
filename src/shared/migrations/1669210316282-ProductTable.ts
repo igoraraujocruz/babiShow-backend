@@ -20,21 +20,12 @@ export class ProductTable1669210316282 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'description',
-                        type: 'varchar',
-                    },
-                    {
                         name: 'slug',
                         type: 'varchar',
                     },
                     {
                         name: 'category',
                         type: 'varchar',
-                    },
-                    {
-                        name: 'destaque',
-                        type: 'boolean',
-                        default: false
                     },
                     {
                         name: 'amount',
@@ -45,8 +36,8 @@ export class ProductTable1669210316282 implements MigrationInterface {
                         type: 'decimal',
                     },
                     {
-                        name: 'points',
-                        type: 'int',
+                        name: 'cost',
+                        type: 'decimal',
                     },
                     {
                         name: 'createdAt',

@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { Shop } from '../infra/Entity';
+import { Order } from '../infra/Entity';
 import { contract } from '../interfaces/contract';
 
 @injectable()
@@ -9,7 +9,7 @@ export class GetAll {
         private repository: contract,
     ) {}
 
-    async execute(): Promise<Shop[]> {
+    async execute(): Promise<Order[]> {
 
         const item = await this.repository.getAll();
 
